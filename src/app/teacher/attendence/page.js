@@ -2,8 +2,14 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function TeacherPage() {
+
+  const [sessionId, setSessionId] = useState(null);
+  const router = useRouter();
+
   const [form, setForm] = useState({
     section: "",
     question: "",
@@ -15,7 +21,7 @@ export default function TeacherPage() {
   });
 
   async function publishQuiz() {
-    await fetch("/api/attendance/create", {
+    const res = await fetch("/api/attendance/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +29,29 @@ export default function TeacherPage() {
       body: JSON.stringify(form),
     });
 
+    if (!res.ok) {
+      alert("Server error");
+      return;
+    }
+
+    const data = await res.json();
+    setSessionId(data.id);
     alert("Attendance session published");
+  }
+
+  async function endAttendance() {
+    if (!sessionId) return;
+
+    await fetch("/api/attendance/end", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sessionId }),
+    });
+
+    alert("Attendance closed");
+    router.push("/teacher/dashboard");
   }
 
   return (
@@ -37,53 +65,31 @@ export default function TeacherPage() {
           Teacher Attendance Control
         </h1>
 
-        {/* Section */}
         <input
-          type="text"
           placeholder="Token (ex: A112)"
           className="w-full px-4 py-3 mb-4 rounded-xl bg-white/10"
           onChange={(e)=>setForm({...form, section:e.target.value})}
         />
 
-        {/* Question */}
         <input
-          type="text"
           placeholder="Enter Quiz Question"
           className="w-full px-4 py-3 mb-4 rounded-xl bg-white/10"
           onChange={(e)=>setForm({...form, question:e.target.value})}
         />
 
         <div className="grid gap-4 mb-6">
-          <input
-            type="text"
-            placeholder="Option 1"
-            className="bg-white/10 p-3 rounded-xl"
-            onChange={(e)=>setForm({...form, option1:e.target.value})}
-          />
-          <input
-            type="text"
-            placeholder="Option 2"
-            className="bg-white/10 p-3 rounded-xl"
-            onChange={(e)=>setForm({...form, option2:e.target.value})}
-          />
-          <input
-            type="text"
-            placeholder="Option 3"
-            className="bg-white/10 p-3 rounded-xl"
-            onChange={(e)=>setForm({...form, option3:e.target.value})}
-          />
-          <input
-            type="text"
-            placeholder="Option 4"
-            className="bg-white/10 p-3 rounded-xl"
-            onChange={(e)=>setForm({...form, option4:e.target.value})}
-          />
+          {["option1","option2","option3","option4"].map(opt => (
+            <input
+              key={opt}
+              placeholder={opt}
+              className="bg-white/10 p-3 rounded-xl"
+              onChange={(e)=>setForm({...form, [opt]:e.target.value})}
+            />
+          ))}
         </div>
 
-        {/* Correct Answer */}
         <input
-          type="text"
-          placeholder="Correct Option (ex: option1)"
+          placeholder="Correct Option"
           className="w-full px-4 py-3 mb-6 rounded-xl bg-white/10"
           onChange={(e)=>setForm({...form, correct:e.target.value})}
         />
@@ -94,6 +100,15 @@ export default function TeacherPage() {
         >
           Publish Quiz & Mark Attendance
         </button>
+
+        {sessionId && (
+          <button
+            onClick={endAttendance}
+            className="w-full mt-4 py-3 bg-red-600 rounded-xl"
+          >
+            End Attendance
+          </button>
+        )}
       </motion.div>
     </main>
   );
