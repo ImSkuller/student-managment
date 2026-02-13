@@ -40,7 +40,7 @@ export default function Home() {
       <section className="py-20 px-10">
         <div className="max-w-6xl mx-auto">
           <Image
-            src="/office.jpg"
+            src="/student_dashboard_v2.png"
             alt="dashboard preview"
             width={1200}
             height={600}
@@ -80,7 +80,7 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 gap-14 items-center">
             <Image
-              src="/feature1.jpg"
+              src="/attendance.png"
               alt="feature"
               width={520}
               height={420}
@@ -108,7 +108,7 @@ export default function Home() {
             </div>
 
             <Image
-              src="/feature2.jpg"
+              src="/analytics_v1.png"
               alt="feature"
               width={520}
               height={420}
