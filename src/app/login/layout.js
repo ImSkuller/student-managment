@@ -1,14 +1,20 @@
-import "../globals.css";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Navbar from "@/components/Navbar";
 
-export const metadata = {
-  title: "Sentinals Login",
-  description: "Smart Student Management System",
-};
+export default async function RootLayout({ children }) {
+  let session = null;
 
-export default function RootLayout({ children }) {
+  try {
+    session = await getServerSession(authOptions);
+  } catch (e) {
+    session = null;
+  }
+
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <div>
+      <Navbar user={session?.user || null} />
+      {children}
+    </div>
   );
 }
