@@ -44,3 +44,25 @@ enum Role {
   teacher
   admin
 }
+
+model AttendanceSession {
+  id        String   @id @default(cuid())
+  teacherId String
+  section   String
+  question  String
+  options   Json
+  correct   String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  submissions Submission[]
+}
+
+model Submission {
+  id          String @id @default(cuid())
+  username    String
+  answer      String
+  correct     Boolean
+  sessionId   String
+  session     AttendanceSession @relation(fields: [sessionId], references: [id])
+}
