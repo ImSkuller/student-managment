@@ -106,7 +106,7 @@ export default function Home() {
                 Performance Analytics
               </h3>
               <p className="text-gray-400 leading-relaxed">
-                Check all the student information such as Attendence, Results, GPA, Marks or Basic student profile.
+                Check all the student information such as Attendence, Results, GPA, Marks or Basic student profile
               </p>
             </div>
 
