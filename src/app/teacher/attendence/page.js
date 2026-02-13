@@ -1,70 +1,94 @@
+// "use client";
+
+// import { motion } from "framer-motion";
+
+// export default function TeacherPage() {
+//   return (
+//     <main className="relative z-10 flex items-center justify-center min-h-screen px-6">
+
+//       <motion.div
+//         initial={{ opacity: 0, y: 40 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         className="bg-white/5 backdrop-blur-2xl border border-white/10
+//         rounded-3xl p-10 w-full max-w-3xl"
+//       >
+//         <h1 className="text-3xl font-bold mb-6">
+//           Teacher Attendance Control
+//         </h1>
+
+//         <input
+//           type="text"
+//           placeholder="Enter Quiz Question"
+//           className="w-full px-4 py-3 mb-4 rounded-xl bg-white/10"
+//         />
+
+//         <div className="grid gap-4 mb-6">
+//           <input type="text" placeholder="Option 1" className="bg-white/10 p-3 rounded-xl"/>
+//           <input type="text" placeholder="Option 2" className="bg-white/10 p-3 rounded-xl"/>
+//           <input type="text" placeholder="Option 3" className="bg-white/10 p-3 rounded-xl"/>
+//           <input type="text" placeholder="Option 4" className="bg-white/10 p-3 rounded-xl"/>
+//         </div>
+
+//         <button className="w-full py-3 bg-gradient-to-r from-pink-500 via-purple-500 to-red-500 rounded-xl">
+//           Publish Quiz & Mark Attendance
+//         </button>
+
+//       </motion.div>
+//     </main>
+//   );
+// }
+
 "use client";
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-
 
 export default function TeacherPage() {
-
-  const [sessionId, setSessionId] = useState(null);
-  const router = useRouter();
-
-  const [form, setForm] = useState({
-    section: "",
-    question: "",
-    option1: "",
-    option2: "",
-    option3: "",
-    option4: "",
-    correct: "",
-  });
-
-  async function publishQuiz() {
-    const res = await fetch("/api/attendance/create", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-
-    if (!res.ok) {
-      alert("Server error");
-      return;
-    }
-
-    const data = await res.json();
-    setSessionId(data.id);
-    alert("Attendance session published");
-  }
-
-  async function endAttendance() {
-    if (!sessionId) return;
-
-    await fetch("/api/attendance/end", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ sessionId }),
-    });
-
-    alert("Attendance closed");
-    router.push("/teacher/dashboard");
-  }
+  const [section, setSection] = useState("");
 
   return (
-    <main className="relative z-10 flex items-center justify-center min-h-screen px-6">
+    <main className="relative min-h-screen px-6 flex items-center justify-center 
+    bg-gradient-to-br from-black via-[#0a0015] to-[#050008] text-white overflow-hidden">
+
+      {/* Multi-color Glow Background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute w-[600px] h-[600px] bg-pink-500/20 rounded-full blur-[160px] top-[-200px] left-[-200px]" />
+        <div className="absolute w-[600px] h-[600px] bg-purple-500/20 rounded-full blur-[160px] bottom-[-200px] right-[-200px]" />
+      </div>
+
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 w-full max-w-3xl"
+        transition={{ duration: 0.8 }}
+        className="relative z-10 bg-black/50 backdrop-blur-2xl border border-white/10
+        rounded-3xl p-10 w-full max-w-3xl shadow-2xl"
       >
-        <h1 className="text-3xl font-bold mb-6">
+        <h1 className="text-3xl font-bold mb-8">
           Teacher Attendance Control
         </h1>
 
+        {/* Section Selection */}
+        <div className="mb-6">
+          <label className="block mb-3 text-gray-400">
+            Select Student Section
+          </label>
+
+          <select
+            value={section}
+            onChange={(e) => setSection(e.target.value)}
+            className="w-full px-5 py-4 rounded-xl 
+            bg-black/60 border border-white/10 
+            focus:outline-none focus:ring-2 focus:ring-purple-500"
+          >
+            <option value="">Choose Section</option>
+            <option value="CSE-A">CSE - A</option>
+            <option value="CSE-B">CSE - B</option>
+            <option value="AI-ML">AI & ML</option>
+            <option value="MCA">MCA</option>
+          </select>
+        </div>
+
+        {/* Quiz Question */}
         <input
           placeholder="Token (ex: A112)"
           className="w-full px-4 py-3 mb-4 rounded-xl bg-white/10"
@@ -73,33 +97,45 @@ export default function TeacherPage() {
 
         <input
           placeholder="Enter Quiz Question"
-          className="w-full px-4 py-3 mb-4 rounded-xl bg-white/10"
-          onChange={(e)=>setForm({...form, question:e.target.value})}
+          className="w-full px-5 py-4 mb-6 rounded-xl 
+          bg-black/60 border border-white/10 
+          focus:outline-none focus:ring-2 focus:ring-purple-500"
         />
 
-        <div className="grid gap-4 mb-6">
-          {["option1","option2","option3","option4"].map(opt => (
-            <input
-              key={opt}
-              placeholder={opt}
-              className="bg-white/10 p-3 rounded-xl"
-              onChange={(e)=>setForm({...form, [opt]:e.target.value})}
-            />
-          ))}
+        {/* Options */}
+        <div className="grid gap-4 mb-8">
+          <input
+            type="text"
+            placeholder="Option 1"
+            className="bg-black/60 border border-white/10 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="text"
+            placeholder="Option 2"
+            className="bg-black/60 border border-white/10 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="text"
+            placeholder="Option 3"
+            className="bg-black/60 border border-white/10 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
+          <input
+            type="text"
+            placeholder="Option 4"
+            className="bg-black/60 border border-white/10 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+          />
         </div>
 
-        <input
-          placeholder="Correct Option"
-          className="w-full px-4 py-3 mb-6 rounded-xl bg-white/10"
-          onChange={(e)=>setForm({...form, correct:e.target.value})}
-        />
-
-        <button
-          onClick={publishQuiz}
-          className="w-full py-3 bg-gradient-to-r from-pink-500 via-purple-500 to-red-500 rounded-xl"
+        {/* Submit */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full py-4 bg-gradient-to-r 
+          from-pink-500 via-purple-500 to-red-500 
+          rounded-xl font-semibold shadow-lg"
         >
           Publish Quiz & Mark Attendance
-        </button>
+        </motion.button>
 
         {sessionId && (
           <button
@@ -113,3 +149,5 @@ export default function TeacherPage() {
     </main>
   );
 }
+
+
