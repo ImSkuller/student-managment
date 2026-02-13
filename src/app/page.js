@@ -1,146 +1,75 @@
-// import Button from "@/components/HomepageButton";
-
-// export default function Home() {
-//   return (
-//     <main className="bg-black text-white min-h-screen">
-
-//       {/* Brand text */}
-//       <div className="absolute top-4 left-6 text-purple-500 font-bold text-xl z-50">
-//         Sentinals
-//       </div>
-
-//       {/* HERO SECTION */}
-//       <section className="min-h-screen flex flex-col items-center justify-center text-center px-6">
-//         <h1 className="text-5xl font-bold mb-6">
-//           Smart Student Management <br /> for Modern Schools
-//         </h1>
-
-//         <p className="text-gray-400 max-w-2xl mb-8">
-//           Manage students, attendance, performance, teachers, and academic records
-//           in one unified intelligent dashboard.
-//         </p>
-
-//         <div className="flex gap-4">
-//           <Button>Get Started</Button>
-//           <Button>View Demo</Button>
-//         </div>
-//       </section>
-
-
-//       {/* FEATURES SECTION */}
-//       <section className="bg-gray-100 text-black py-20 px-6">
-//         <h2 className="text-3xl font-bold text-center mb-12">
-//           Powerful Tools for Schools
-//         </h2>
-
-//         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-//           <div className="bg-white p-8 rounded-2xl shadow">
-//             <h3 className="font-semibold text-xl mb-3">Student Records</h3>
-//             <p className="text-gray-600">
-//               Store academic profiles, attendance, performance analytics,
-//               and personal student data securely.
-//             </p>
-//           </div>
-
-//           <div className="bg-white p-8 rounded-2xl shadow">
-//             <h3 className="font-semibold text-xl mb-3">Attendance Tracking</h3>
-//             <p className="text-gray-600">
-//               Automated attendance systems with real-time dashboards
-//               and reports for teachers and administrators.
-//             </p>
-//           </div>
-
-//           <div className="bg-white p-8 rounded-2xl shadow">
-//             <h3 className="font-semibold text-xl mb-3">Teacher Management</h3>
-//             <p className="text-gray-600">
-//               Manage staff records, schedules, subjects, and performance
-//               evaluation in one place.
-//             </p>
-//           </div>
-//         </div>
-//       </section>
-
-
-//       {/* CTA SECTION */}
-//       <section className="py-24 text-center">
-//         <h2 className="text-4xl font-bold mb-6">
-//           Transform Your School Administration
-//         </h2>
-
-//         <Button>Start Managing Today</Button>
-//       </section>
-
-//     </main>
-//   );
-// }
-
-
-
-
+import Button from "@/components/HomepageButton";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className="bg-black text-white">
+    <main className="bg-[#1A1A1A] text-white">
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative min-h-screen flex flex-col justify-center px-10 py-20 
-        bg-gradient-to-tr from-black via-purple-900 to-pink-600">
+      <section className="relative min-h-screen flex flex-col justify-center px-10 py-24
+        bg-gradient-to-tr from-[#1A1A1A] via-[#2B1B3F] to-[#3B1A5A] rounded-b-[48px]">
 
-        {/* Navbar */}
-        <nav className="absolute top-0 left-0 w-full flex justify-between items-center px-10 py-6">
-          <h1 className="text-green-400 font-semibold text-lg">
-            Sentinals.
+        {/* Brand */}
+        <div className="absolute top-6 left-10">
+          <h1 className="text-purple-400 font-semibold text-2xl tracking-wide">
+            Sentinals
           </h1>
+        </div>
 
-          
-        </nav>
-
-        {/* Big Heading */}
-        <h1 className="text-6xl md:text-8xl font-bold leading-tight max-w-4xl">
-          Let’s Build <br /> Smart Student <br /> Management
+        {/* Main Heading */}
+        <h1 className="text-5xl md:text-7xl font-bold leading-tight max-w-4xl">
+          <span className="text-purple-400">Sentinals</span>
+          <br />Smart Student<br />
+          <span className="text-purple-400">Management</span>
         </h1>
 
-        {/* Small side text */}
-        <p className="absolute right-10 top-1/2 max-w-xs text-sm text-gray-200 hidden md:block">
-          Here we build intelligent dashboards for managing students,
-          attendance and academic systems.
+        {/* Sub text */}
+        <p className="mt-8 text-lg text-gray-300 max-w-xl">
+          Intelligent dashboards to manage students, attendance, performance, and academic workflows all in one place.
+        </p>
+
+        {/* Side description */}
+        <p className="absolute right-10 top-1/2 max-w-xs text-sm text-gray-400 hidden md:block">
+          Designed by team{" "}
+          <Link href="/about" className="text-purple-400 hover:underline">Sentinals</Link>.
         </p>
       </section>
 
-
       {/* ================= IMAGE SECTION ================= */}
-      <section className="bg-white py-16 px-10">
+      <section className="py-20 px-10">
         <div className="max-w-6xl mx-auto">
           <Image
             src="/office.jpg"
             alt="dashboard preview"
             width={1200}
             height={600}
-            className="rounded-xl shadow-xl"
+            className="rounded-2xl shadow-2xl border border-[#2A2A2A]"
           />
         </div>
       </section>
 
-
-      {/* ================= SERVICES SECTION ================= */}
-      <section className="bg-black py-20 px-10">
-        <h2 className="text-gray-400 mb-6">Our Services</h2>
+      {/* ================= SERVICES ================= */}
+      <section className="py-24 px-10">
+        <h2 className="text-gray-400 mb-8 text-sm uppercase tracking-wider">
+          Core Modules
+        </h2>
 
         <div className="flex flex-wrap gap-4">
           {[
             "Student Records",
+            "Attendence Registration",
             "Attendance Tracking",
             "Teacher Management",
             "Analytics Dashboard",
             "Performance Reports",
-            "Role Based Access",
-            "Fee Management",
             "Result Processing",
           ].map((item, index) => (
             <div
               key={index}
-              className="border border-gray-600 px-6 py-3 rounded-full hover:bg-white hover:text-black transition cursor-pointer"
+              className="border border-[#333] px-6 py-3 rounded-full
+              text-sm text-gray-300 hover:bg-purple-500 hover:text-black
+              transition cursor-pointer"
             >
               {item}
             </div>
@@ -148,75 +77,63 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ================= FEATURES ================= */}
+      <section className="py-24 px-10 bg-[#202020] rounded-t-[48px] rounded-b-[48px]">
+        <div className="max-w-6xl mx-auto space-y-32">
 
-      {/* ================= FEATURE SHOWCASE ================= */}
-      <section className="bg-gray-100 text-black py-20 px-10">
-        <div className="max-w-6xl mx-auto space-y-24">
-
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div className="grid md:grid-cols-2 gap-14 items-center">
             <Image
               src="/feature1.jpg"
               alt="feature"
-              width={500}
-              height={400}
-              className="rounded-xl"
+              width={520}
+              height={420}
+              className="rounded-2xl"
             />
 
             <div>
-              <h3 className="text-3xl font-bold mb-4">
+              <h3 className="text-3xl font-semibold mb-4">
                 Smart Attendance System
               </h3>
-              <p className="text-gray-600">
-                Track attendance in real time using AI-based or QR-based
-                verification systems with powerful analytics.
+              <p className="text-gray-400 leading-relaxed">
+                Track attendance in real time using with our quizz based attendence registration system, Which only registers the attendence if the student answers the quizz.
               </p>
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div className="grid md:grid-cols-2 gap-14 items-center">
             <div>
-              <h3 className="text-3xl font-bold mb-4">
+              <h3 className="text-3xl font-semibold mb-4">
                 Performance Analytics
               </h3>
-              <p className="text-gray-600">
-                Get insights on academic performance, attendance trends,
-                and teacher evaluations.
+              <p className="text-gray-400 leading-relaxed">
+                Check all the student information such as Attendence, Results, GPA, Marks or Basic student profile.
               </p>
             </div>
 
             <Image
               src="/feature2.jpg"
               alt="feature"
-              width={500}
-              height={400}
-              className="rounded-xl"
+              width={520}
+              height={420}
+              className="rounded-2xl"
             />
           </div>
 
         </div>
       </section>
 
+      {/* ================= CTA / FOOTER ================= */}
+      <section className="bg-lime-400 text-black py-28 px-10 mt-24">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row
+          justify-between items-center gap-12">
 
-      {/* ================= TESTIMONIAL ================= */}
-      <section className="py-20 px-10 bg-white text-black">
-        <h2 className="text-center text-3xl font-bold mb-12">
-          
-        </h2>
-
-        
-      </section>
-
-
-      {/* ================= CTA SECTION ================= */}
-      <section className="bg-lime-400 text-black py-24 px-10">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-
-          <h2 className="text-5xl font-bold">
-            Want to Start <br /> Managing Smartly?
+          <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+            Ready to Manage <br /> Smarter?
           </h2>
 
-          <button className="bg-black text-white px-8 py-4 rounded-full hover:scale-105 transition">
-            
+          <button className="bg-black text-white px-10 py-4 rounded-full
+            hover:scale-105 transition font-medium">
+            Get Started
           </button>
         </div>
       </section>
@@ -224,4 +141,3 @@ export default function Home() {
     </main>
   );
 }
-
