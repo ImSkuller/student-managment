@@ -2,13 +2,16 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AttendancePage() {
-  const [studentId, setStudentId] = useState("");
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [section, setSection] = useState("");
   const [session, setSession] = useState(null);
   const [selected, setSelected] = useState("");
+
+  const router = useRouter();
+
 
   async function loadSession() {
     const res = await fetch(`/api/attendance/current?section=${section}`);
@@ -37,14 +40,14 @@ export default function AttendancePage() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: studentId,
-        name,
+        username: username,
         sessionId: session.id,
         answer: selected,
       }),
     });
 
     alert("Attendance submitted");
+    router.push("/student/dashboard")
   }
 
   return (
@@ -55,7 +58,7 @@ export default function AttendancePage() {
         className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 w-full max-w-2xl shadow-2xl"
       >
         <h1 className="text-4xl font-bold mb-4 text-center">
-          Smart Attendance Registration
+          Attendance Registration
         </h1>
 
         <p className="text-gray-400 text-center mb-10">
@@ -65,15 +68,9 @@ export default function AttendancePage() {
         {/* Student info */}
         <div className="space-y-6 mb-10">
           <input
-            placeholder="Student ID"
+            placeholder="Student Username"
             className="w-full px-5 py-4 rounded-xl bg-white/10"
-            onChange={(e)=>setStudentId(e.target.value)}
-          />
-
-          <input
-            placeholder="Full Name"
-            className="w-full px-5 py-4 rounded-xl bg-white/10"
-            onChange={(e)=>setName(e.target.value)}
+            onChange={(e)=>setUsername(e.target.value)}
           />
 
           <input
@@ -97,9 +94,9 @@ export default function AttendancePage() {
             </h2>
 
             <div className="grid gap-4">
-              {session?.options?.map((option) => (
+              {session?.options?.map((option, i) => (
                 <motion.button
-                  key={option}
+                  key={`${option}-${i}`}
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setSelected(option)}

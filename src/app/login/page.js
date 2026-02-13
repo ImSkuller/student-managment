@@ -18,7 +18,9 @@ export default function LoginPage() {
     });
 
     if (res?.ok) {
-      router.push("/dashboard");
+      const session = await getSession();
+      const role = session?.user?.role;
+      router.push(`${role}/dashboard`);
     } else {
       alert("Invalid login");
     }
