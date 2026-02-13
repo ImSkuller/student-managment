@@ -1,10 +1,15 @@
 import Button from "@/components/HomepageButton";
 import Image from "next/image";
 import Link from "next/link";
+import Navbar from "@/components/Navbar"
 
 export default function Home() {
+
+  const user = null;
+
   return (
     <main className="bg-[#1A1A1A] text-white">
+      <Navbar user = {user}/>
 
       {/* ================= HERO SECTION ================= */}
       <section className="relative min-h-screen flex flex-col justify-center px-10 py-24
