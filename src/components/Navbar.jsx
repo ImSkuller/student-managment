@@ -22,6 +22,9 @@ export default function Navbar({ user }) {
           </Link>
         )}
 
+        <Link href="/about" className="hover:text-black">About</Link>
+        <Link href="/info" className="hover:text-black">Information</Link>
+
       </nav>
     </div>
   );
