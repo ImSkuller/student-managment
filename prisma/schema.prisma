@@ -1,0 +1,45 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String  @id @default(cuid())
+  userid    String  @unique
+  username  String
+  name      String
+  email     String  @unique
+  password  String
+  role      Role
+
+  // student
+  feeStatus        String?
+  totalAttendance  Int?
+  gpa              Float?
+
+  // teacher
+  joinDate         DateTime?
+
+  // admin
+  permissions      String?
+
+  subjects Subject[]
+}
+
+model Subject {
+  id        String @id @default(cuid())
+  name      String
+  marks     Float?
+  attendance Float?
+  userId    String
+  user      User @relation(fields: [userId], references: [id])
+}
+
+enum Role {
+  student
+  teacher
+  admin
+}

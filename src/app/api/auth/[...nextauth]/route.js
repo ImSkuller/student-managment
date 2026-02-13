@@ -10,19 +10,40 @@ export const authOptions = {
         password: {},
       },
       async authorize(credentials) {
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email },
+        });
 
-        // example check
-        if (
-          credentials.email === "admin@test.com" &&
-          credentials.password === "123"
-        ) {
-          return { id: "1", name: "Admin", email: "admin@test.com" };
-        }
+        if (!user) return null;
 
-        return null;
+        const valid = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+
+        if (!valid) return null;
+
+        return user;
       },
     }),
   ],
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.role = user.role;
+        token.id = user.id;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      session.user.role = token.role;
+      session.user.id = token.id;
+      return session;
+    },
+  },
+
   session: { strategy: "jwt" },
 };
 
