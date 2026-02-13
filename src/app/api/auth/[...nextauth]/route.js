@@ -1,5 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "@/lib/prisma";
+import bcrypt from "bcrypt";
 
 export const authOptions = {
   providers: [
@@ -41,6 +43,16 @@ export const authOptions = {
       session.user.role = token.role;
       session.user.id = token.id;
       return session;
+    },
+
+    async redirect({ url, baseUrl, token }) {
+      if (!token?.role) return baseUrl;
+
+      if (token.role === "admin") return `${baseUrl}/admin`;
+      if (token.role === "teacher") return `${baseUrl}/teacher`;
+      if (token.role === "student") return `${baseUrl}/student`;
+
+      return baseUrl;
     },
   },
 

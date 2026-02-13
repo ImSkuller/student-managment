@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 export default function Navbar({ user }) {
   return (
@@ -9,21 +10,15 @@ export default function Navbar({ user }) {
 
         {user ? (
           <>
-            <Link href="/dashboard" className="hover:text-black">
-              Dashboard
-            </Link>
-            <Link href="/profile" className="hover:text-black">
-              Profile
-            </Link>
+            <Link href="/dashboard" className="hover:text-black">Dashboard</Link>
+            <Link href="/profile" className="hover:text-black">Profile</Link>
+            <Link href="/about" className="hover:text-black">About</Link>
+            <Link href="/info" className="hover:text-black">Information</Link>
+            <button onClick={() => signOut({ callbackUrl: "/login" })} className="hover:text-black hover:cursor-pointer">Logout</button>
           </>
         ) : (
-          <Link href="/login" className="hover:text-black">
-            Login
-          </Link>
+          <Link href="/login" className="hover:text-black">Login</Link>
         )}
-
-        <Link href="/about" className="hover:text-black">About</Link>
-        <Link href="/info" className="hover:text-black">Information</Link>
 
       </nav>
     </div>
