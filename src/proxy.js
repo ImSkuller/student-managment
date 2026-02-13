@@ -9,7 +9,7 @@ export async function proxy(req) {
 
   const { pathname } = req.nextUrl;
 
-  Not logged in → redirect to login
+  // Not logged in → redirect to login
   if (!token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
