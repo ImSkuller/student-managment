@@ -90,7 +90,12 @@ export default function TeacherPage() {
 
         {/* Quiz Question */}
         <input
-          type="text"
+          placeholder="Token (ex: A112)"
+          className="w-full px-4 py-3 mb-4 rounded-xl bg-white/10"
+          onChange={(e)=>setForm({...form, section:e.target.value})}
+        />
+
+        <input
           placeholder="Enter Quiz Question"
           className="w-full px-5 py-4 mb-6 rounded-xl 
           bg-black/60 border border-white/10 
@@ -132,6 +137,14 @@ export default function TeacherPage() {
           Publish Quiz & Mark Attendance
         </motion.button>
 
+        {sessionId && (
+          <button
+            onClick={endAttendance}
+            className="w-full mt-4 py-3 bg-red-600 rounded-xl"
+          >
+            End Attendance
+          </button>
+        )}
       </motion.div>
     </main>
   );
