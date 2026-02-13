@@ -8,8 +8,7 @@ export default function Home() {
     <main className="bg-[#1A1A1A] text-white">
 
       {/* ================= HERO SECTION ================= */}
-      <section className="relative min-h-screen flex flex-col justify-center px-10 py-24
-        bg-gradient-to-tr from-[#1A1A1A] via-[#2B1B3F] to-[#3B1A5A] rounded-b-[48px]">
+      <section className="relative min-h-screen flex flex-col justify-center px-10 py-24 bg-gradient-to-tr from-[#1A1A1A] via-[#2B1B3F] to-[#3B1A5A] rounded-b-[48px]">
 
         {/* Brand */}
         <div className="absolute top-6 left-10">
@@ -68,10 +67,7 @@ export default function Home() {
           ].map((item, index) => (
             <div
               key={index}
-              className="border border-[#333] px-6 py-3 rounded-full
-              text-sm text-gray-300 hover:bg-purple-500 hover:text-black
-              transition cursor-pointer"
-            >
+              className="border border-[#333] px-6 py-3 rounded-full text-sm text-gray-300 hover:bg-purple-500 hover:text-black transition cursor-pointer">
               {item}
             </div>
           ))}
@@ -125,15 +121,13 @@ export default function Home() {
 
       {/* ================= CTA / FOOTER ================= */}
       <section className="bg-lime-400 text-black py-28 px-10 mt-24">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row
-          justify-between items-center gap-12">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
 
           <h2 className="text-4xl md:text-5xl font-bold leading-tight">
             Ready to Manage <br /> Smarter?
           </h2>
 
-          <Button className="bg-black text-white px-10 py-4 rounded-full
-            hover:scale-105 transition font-medium">
+          <Button className="bg-black text-white px-10 py-4 rounded-full hover:scale-105 transition font-medium">
             Get Started
           </Button>
         </div>
